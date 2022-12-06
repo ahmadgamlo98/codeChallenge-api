@@ -1,3 +1,32 @@
-controllers:
-    resource: ../src/Controller/
-    type: attribute
+api_login_check:
+    path: /api/login_check
+
+api_register:
+    path:       /api/register
+    controller: App\Controller\RegistrationController::index
+    methods:    POST
+
+dashboard:
+    path:       /api/dashboard
+    controller: App\Controller\DashboardController::index
+    methods:    GET
+
+fetchall_api:
+    path:       /api/fetchall_api
+    controller: App\Controller\ApiController::fetchall_api
+    methods:    GET
+
+post_api:
+    path:       /api/post_api
+    controller: App\Controller\ApiController::post_api
+    methods:    POST
+
+update_api:
+    path:       /api/update_api/{id}
+    controller: App\Controller\ApiController::update_api
+    methods:    PUT
+
+delete_api:
+    path:       /api/delete_api/{id}
+    controller: App\Controller\ApiController::delete_api
+    methods:    DELETE

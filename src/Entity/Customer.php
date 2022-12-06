@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\CustomerRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CustomerRepository::class)]
@@ -24,6 +25,9 @@ class Customer
 
     #[ORM\Column(length: 255)]
     private  $countryname;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $codename = null;
 
 
     public function getId(): ?int
@@ -74,6 +78,18 @@ class Customer
     public function setCountryname(string $countryname): self
     {
         $this->countryname = $countryname;
+
+        return $this;
+    }
+
+    public function getCodename(): ?string
+    {
+        return $this->codename;
+    }
+
+    public function setCodename(?string $codename): self
+    {
+        $this->codename = $codename;
 
         return $this;
     }

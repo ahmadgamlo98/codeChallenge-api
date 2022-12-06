@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Customer;
+use Doctrine\ORM\Query\AST\Functions\LengthFunction;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\Persistence\ManagerRegistry as PersistenceManagerRegistry;
+use PhpParser\Node\Stmt;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -29,10 +31,7 @@ class ApiController extends AbstractController
         $entityManager = $doctrine->getManager();
         $customer = new Customer();
         $parameter = json_decode($request->getContent(), true);
-        // $name = $_POST['name'];
-        // $address = $_POST['address'];
-        // $mobilenumber = $_POST['mobilenumber'];
-        // dd($parameter);
+       
         if ($parameter != null) {
             $customer->setName(isset($parameter['name']) ? $parameter['name'] : 0);
             $customer->setAddress(isset($parameter['address']) ? $parameter['address'] : 0);
@@ -44,6 +43,7 @@ class ApiController extends AbstractController
             $customer->setMobilenumber($request->request->get('mobilenumber'));
             $customer->setCountryname($request->request->get('countryname'));
         }
+        
         $entityManager->persist($customer);
         $entityManager->flush();
         return $this->json('Inserted Successfuly');
@@ -103,7 +103,8 @@ class ApiController extends AbstractController
                 'name' => $d->getName(),
                 'address' => $d->getAddress(),
                 'mobilenumber' => $d->getMobilenumber(),
-                'countryname' => $d->getCountryname()
+                'countryname' => $d->getCountryname(),
+
             ];
         }
         return $this->json(
